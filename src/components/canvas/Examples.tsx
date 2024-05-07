@@ -21,7 +21,7 @@ export const Blob = ({ route = "/", ...props }) => {
 }
 
 export const Logo = ({ route = "/blob", ...props }) => {
-	const mesh = useRef(null)
+	const mesh = useRef<THREE.Group>(null)
 	const router = useRouter()
 
 	const [hovered, hover] = REACT.useState(false)
@@ -30,18 +30,17 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	DREI.useCursor(hovered)
 	FIBER.useFrame((state, delta) => {
 		const t = state.clock.getElapsedTime()
-		mesh.current.rotation.y = Math.sin(t) * (Math.PI / 8)
-		mesh.current.rotation.x = Math.cos(t) * (Math.PI / 8)
-		mesh.current.rotation.z -= delta / 4
+		if (mesh.current) {
+			mesh.current.rotation.y = Math.sin(t) * (Math.PI / 8)
+			mesh.current.rotation.x = Math.cos(t) * (Math.PI / 8)
+			mesh.current.rotation.z -= delta / 4
+		}
 	})
 
 	return (
 		<group ref={mesh} {...props}>
-			{/* @ts-ignore */}
 			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} />
-			{/* @ts-ignore */}
 			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} rotation={[0, 0, 1]} />
-			{/* @ts-ignore */}
 			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} rotation={[0, 0, -1]} />
 			<mesh onClick={() => router.push(route)} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
 				<sphereGeometry args={[0.55, 64, 64]} />
@@ -51,7 +50,7 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	)
 }
 
-export function Duck(props) {
+export function Duck(props: any) {
 	const { scene } = useGLTF("/duck.glb")
 
 	FIBER.useFrame(
