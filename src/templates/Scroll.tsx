@@ -20,19 +20,15 @@ export default function Scroll({ children }: { children: React.ReactNode }) {
 
 	REACT.useEffect(() => {
 		const lenis = new Lenis({
-			wrapper: wrapper.current,
-			content: content.current,
+			wrapper: wrapper.current as HTMLElement,
+			content: content.current as HTMLElement,
 			duration: 1.2,
 			easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // https://www.desmos.com/calculator/brs54l4xou
-			// direction: "vertical", // vertical, horizontal
-			// gestureDirection: "vertical", // vertical, horizontal, both
-			// smooth: true,
-			// smoothTouch: false,
 			touchMultiplier: 2,
 			infinite: false,
 		})
 
-		lenis.on("scroll", ({ scroll, progress }) => {
+		lenis.on("scroll", ({ scroll, progress }: { scroll: number; progress: number }) => {
 			state.top = scroll
 			state.progress = progress
 		})

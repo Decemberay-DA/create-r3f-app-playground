@@ -21,17 +21,30 @@ type ViewProps = {
 	[key: string]: any
 }
 
+<<<<<<< HEAD
 const View = forwardRef(({ children, orbit, ...props }: ViewProps, ref) => {
 	const localRef = useRef<HTMLDivElement>(null)
 	useImperativeHandle(ref, () => localRef.current)
+=======
+const View = forwardRef<HTMLDivElement, ViewProps>((props, ref) => {
+	const localRef = useRef<HTMLDivElement>(null)
+	useImperativeHandle(ref, () => localRef.current!)
+>>>>>>> a63f69a31fbc2dc2ac5f442473827b5971435b63
 
 	return (
 		<>
-			<div ref={localRef} {...props} />
+			<div ref={localRef} {...props.otherProps} />
 			<Three>
+<<<<<<< HEAD
 				<ViewImpl track={localRef as React.MutableRefObject<HTMLDivElement>}>
 					{children}
 					{orbit && <OrbitControls />}
+=======
+				<ViewImpl track={localRef as React.MutableRefObject<HTMLElement>}>
+					{" "}
+					{props.children}
+					{props.orbit && <OrbitControls />}
+>>>>>>> a63f69a31fbc2dc2ac5f442473827b5971435b63
 				</ViewImpl>
 			</Three>
 		</>
