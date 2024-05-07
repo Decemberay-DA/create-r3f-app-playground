@@ -14,9 +14,9 @@ const state = {
 	progress: 0,
 }
 
-export default function Scroll({ children }) {
-	const content = REACT.useRef(null)
-	const wrapper = REACT.useRef(null)
+export default function Scroll({ children }: { children: React.ReactNode }) {
+	const content = REACT.useRef<HTMLDivElement>(null)
+	const wrapper = REACT.useRef<HTMLDivElement>(null)
 
 	REACT.useEffect(() => {
 		const lenis = new Lenis({
