@@ -50,7 +50,7 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	)
 }
 
-export function Duck(props: any) {
+export function Duck({ ...props }) {
 	const { scene } = useGLTF("/duck.glb")
 
 	FIBER.useFrame(
@@ -59,7 +59,7 @@ export function Duck(props: any) {
 
 	return <primitive object={scene} {...props} />
 }
-export function Dog(props) {
+export function Dog({ ...props }) {
 	const { scene } = useGLTF("/dog.glb")
 
 	return <primitive object={scene} {...props} />
