@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic"
 
+const Common = dynamic(() => import("@/components/canvas/View").then((mod) => mod.Common), { ssr: false })
 const Blob = dynamic(() => import("@/components/canvas/Examples").then((mod) => mod.Blob), { ssr: false })
 const View = dynamic(() => import("@/components/canvas/View").then((mod) => mod.View), {
 	ssr: false,
@@ -18,7 +19,6 @@ const View = dynamic(() => import("@/components/canvas/View").then((mod) => mod.
 		</div>
 	),
 })
-const Common = dynamic(() => import("@/components/canvas/View").then((mod) => mod.Common), { ssr: false })
 
 export default function Page() {
 	return (
