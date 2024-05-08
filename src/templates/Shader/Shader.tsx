@@ -1,12 +1,12 @@
-// @ts-nocheck
+// @ts-nocheck // TODO: fix types
 import * as THREE from "three"
 import vertex from "./glsl/shader.vert"
 import fragment from "./glsl/shader.frag"
-import { FIBER } from "@/FExport"
-import { REACT } from "@/FExport"
-import { DREI } from "@/FExport"
+import { shaderMaterial } from "@react-three/drei"
+import { extend, useFrame } from "@react-three/fiber"
+import { forwardRef, useRef, useImperativeHandle } from "react"
 
-const ShaderImpl = DREI.shaderMaterial(
+const ShaderImpl = shaderMaterial(
 	{
 		time: 0,
 		color: new THREE.Color(0.05, 0.0, 0.025),
@@ -15,15 +15,15 @@ const ShaderImpl = DREI.shaderMaterial(
 	fragment,
 )
 
-FIBER.extend({ ShaderImpl })
+extend({ ShaderImpl })
 
 // eslint-disable-next-line react/display-name
-const Shader = REACT.forwardRef(({ children, ...props }, ref) => {
-	const localRef = REACT.useRef()
+const Shader = forwardRef(({ children, ...props }, ref) => {
+	const localRef = useRef()
 
-	REACT.useImperativeHandle(ref, () => localRef.current)
+	useImperativeHandle(ref, () => localRef.current)
 
-	FIBER.useFrame((_, delta) => (localRef.current.time += delta))
+	useFrame((_, delta) => (localRef.current.time += delta))
 	return <shaderImpl ref={localRef} glsl={THREE.GLSL3} {...props} attach='material' />
 })
 

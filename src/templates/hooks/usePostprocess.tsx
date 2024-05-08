@@ -1,4 +1,8 @@
-import { REACT, THREE, FIBER } from "@/FExport"
+// @ts-nocheck // TODO: fix types
+import { useThree, useFrame } from "@react-three/fiber"
+import { useMemo, useEffect } from "react"
+import { BufferGeometry, BufferAttribute, Scene, OrthographicCamera, Mesh, WebGLRenderTarget, DepthTexture, RawShaderMaterial } from "three"
+import * as THREE from "three"
 
 function getFullscreenTriangle() {
 	const points = [
@@ -6,30 +10,30 @@ function getFullscreenTriangle() {
 		{ position: [3, -1], uv: [2, 0] },
 		{ position: [-1, 3], uv: [0, 2] },
 	]
-	const geometry = new THREE.BufferGeometry()
+	const geometry = new BufferGeometry()
 
-	geometry.setAttribute("position", new THREE.BufferAttribute(new Float32Array(points.flatMap((p) => p.position)), 2))
-	geometry.setAttribute("uv", new THREE.BufferAttribute(new Float32Array(points.flatMap((p) => p.uv)), 2))
+	geometry.setAttribute("position", new BufferAttribute(new Float32Array(points.flatMap((p) => p.position)), 2))
+	geometry.setAttribute("uv", new BufferAttribute(new Float32Array(points.flatMap((p) => p.uv)), 2))
 	return geometry
 }
 
 // Basic shader postprocess based on the template https://gist.github.com/RenaudRohlinger/bd5d15316a04d04380e93f10401c40e7
 // USAGE: Simply call usePostprocess hook in your r3f component to apply the shader to the canvas as a postprocess effect
 const usePostProcess = () => {
-	const [{ dpr }, size, gl] = FIBER.useThree((s) => [s.viewport, s.size, s.gl])
+	const [{ dpr }, size, gl] = useThree((s) => [s.viewport, s.size, s.gl])
 
-	const [screenCamera, screenScene, screen, renderTarget] = REACT.useMemo(() => {
-		let screenScene = new THREE.Scene()
-		const screenCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
-		const screen = new THREE.Mesh(getFullscreenTriangle())
+	const [screenCamera, screenScene, screen, renderTarget] = useMemo(() => {
+		let screenScene = new Scene()
+		const screenCamera = new OrthographicCamera(-1, 1, 1, -1, 0, 1)
+		const screen = new Mesh(getFullscreenTriangle())
 		screen.frustumCulled = false
 		screenScene.add(screen)
 
-		const renderTarget = new THREE.WebGLRenderTarget(512, 512, { samples: 4, encoding: gl.encoding })
-		renderTarget.depthTexture = new THREE.DepthTexture() // fix depth issues
+		const renderTarget = new WebGLRenderTarget(512, 512, { samples: 4, encoding: gl.encoding })
+		renderTarget.depthTexture = new DepthTexture() // fix depth issues
 
 		// use ShaderMaterial for linearToOutputTexel
-		screen.material = new THREE.RawShaderMaterial({
+		screen.material = new RawShaderMaterial({
 			uniforms: {
 				diffuse: { value: null },
 				time: { value: 0 },
@@ -79,7 +83,7 @@ const usePostProcess = () => {
 
 		return [screenCamera, screenScene, screen, renderTarget]
 	}, [gl.encoding])
-	REACT.useEffect(() => {
+	useEffect(() => {
 		const { width, height } = size
 		const { w, h } = {
 			w: width * dpr,
@@ -88,7 +92,7 @@ const usePostProcess = () => {
 		renderTarget.setSize(w, h)
 	}, [dpr, size, renderTarget])
 
-	FIBER.useFrame(({ scene, camera, gl }, delta) => {
+	useFrame(({ scene, camera, gl }, delta) => {
 		gl.setRenderTarget(renderTarget)
 		gl.render(scene, camera)
 

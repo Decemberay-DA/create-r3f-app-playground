@@ -3,7 +3,7 @@
 import { forwardRef, Suspense, useImperativeHandle, useRef } from "react"
 import { OrbitControls, PerspectiveCamera, View as ViewImpl } from "@react-three/drei"
 import { Three } from "@/helpers/components/Three"
-import { THREE } from "@/FExport"
+import * as THREE from "three"
 
 export const Common = ({ color }: { color: THREE.ColorRepresentation }) => (
 	<Suspense fallback={null}>
