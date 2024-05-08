@@ -5,7 +5,7 @@ import { OrbitControls, PerspectiveCamera, View as ViewImpl } from "@react-three
 import { Three } from "@/helpers/components/Three"
 import * as THREE from "three"
 
-export const Common = ({ color }: { color: THREE.ColorRepresentation }) => (
+export const Common = ({ color }: { color?: THREE.ColorRepresentation }) => (
 	<Suspense fallback={null}>
 		{color && <color attach='background' args={[color]} />}
 		<ambientLight />
