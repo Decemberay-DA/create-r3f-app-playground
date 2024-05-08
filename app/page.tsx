@@ -96,8 +96,8 @@ export default function Page() {
 						</p>
 					</div>
 
-					<div className='relative my-12 h-48 w-full py-6 sm:w-1/2 md:mb-40'>
-						<View orbit className='relative h-full  sm:h-48 sm:w-full'>
+					<div className='relative my-12 h-48 w-full md:max-w-1/2 py-6 md:mb-40'>
+						<View orbit className='relative h-full sm:h-48 sm:w-full'>
 							<Suspense fallback={null}>
 								{/* <DuckAndDog /> */}
 								<Dog route='/blob' scale={2} position={[0, -1.6, 0]} />
