@@ -7,9 +7,6 @@ import { Line, useCursor, MeshDistortMaterial } from "@react-three/drei"
 import { useRouter } from "next/navigation"
 import { useFrame } from "@react-three/fiber"
 
-/**
- * dev commit
- */
 export const Blob = ({ route = "/", ...props }) => {
 	const router = useRouter()
 	const [hovered, hover] = useState(false)
@@ -42,8 +39,8 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	return (
 		<group ref={mesh} {...props}>
 			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} />
-			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} rotation={[0, 0, 1]} />
-			<Line worldUnits points={points} color='#1fb2f5' lineWidth={0.15} rotation={[0, 0, -1]} />
+			<Line worldUnits points={points} color='#2fb2f5' lineWidth={0.15} rotation={[0, 0, 1]} />
+			<Line worldUnits points={points} color='#3fb2f5' lineWidth={0.15} rotation={[0, 0, -1]} />
 			<mesh onClick={() => router.push(route)} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)}>
 				<sphereGeometry args={[0.55, 64, 64]} />
 				<meshPhysicalMaterial roughness={0.5} color={hovered ? "hotpink" : "#1fb2f5"} />
@@ -52,14 +49,15 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	)
 }
 
-export function Duck({ ...props }) {
+export const Duck = ({ ...props }) => {
 	const { scene } = useGLTF("/duck.glb")
 
 	useFrame((state, delta) => (scene.rotation.y = state.clock.getElapsedTime() * 11 + Math.sin(state.clock.getElapsedTime() * 0.5) * 7))
 
 	return <primitive object={scene} {...props} />
 }
-export function Dog({ ...props }) {
+
+export const Dog = ({ ...props }) => {
 	const { scene } = useGLTF("/dog.glb")
 
 	return <primitive object={scene} {...props} />

@@ -18,7 +18,7 @@ const ShaderImpl = shaderMaterial(
 extend({ ShaderImpl })
 
 // eslint-disable-next-line react/display-name
-const Shader = forwardRef(({ children, ...props }, ref) => {
+export const Shader = forwardRef(({ children, ...props }, ref) => {
 	const localRef = useRef()
 
 	useImperativeHandle(ref, () => localRef.current)
@@ -26,5 +26,3 @@ const Shader = forwardRef(({ children, ...props }, ref) => {
 	useFrame((_, delta) => (localRef.current.time += delta))
 	return <shaderImpl ref={localRef} glsl={THREE.GLSL3} {...props} attach='material' />
 })
-
-export default Shader
