@@ -1,20 +1,19 @@
 "use client"
 
 import { useGLTF } from "@react-three/drei"
-import { useFrame } from "@react-three/fiber"
 import * as THREE from "three"
 import { useMemo, useRef, useState } from "react"
 import { Line, useCursor, MeshDistortMaterial } from "@react-three/drei"
 import { useRouter } from "next/navigation"
-import { DREI, FIBER, REACT } from "@/FExport"
+import { useFrame } from "@react-three/fiber"
 
 /**
  * dev commit
  */
 export const Blob = ({ route = "/", ...props }) => {
 	const router = useRouter()
-	const [hovered, hover] = REACT.useState(false)
-	DREI.useCursor(hovered)
+	const [hovered, hover] = useState(false)
+	useCursor(hovered)
 	return (
 		<mesh onClick={() => router.push(route)} onPointerOver={() => hover(true)} onPointerOut={() => hover(false)} {...props}>
 			<sphereGeometry args={[1, 64, 64]} />
@@ -27,11 +26,11 @@ export const Logo = ({ route = "/blob", ...props }) => {
 	const mesh = useRef<THREE.Group>(null)
 	const router = useRouter()
 
-	const [hovered, hover] = REACT.useState(false)
+	const [hovered, hover] = useState(false)
 	const points = useMemo(() => new THREE.EllipseCurve(0, 0, 3, 1.15, 0, 2 * Math.PI, false, 0).getPoints(100), [])
 
-	DREI.useCursor(hovered)
-	FIBER.useFrame((state, delta) => {
+	useCursor(hovered)
+	useFrame((state, delta) => {
 		const t = state.clock.getElapsedTime()
 		if (mesh.current) {
 			mesh.current.rotation.y = Math.sin(t) * (Math.PI / 8)
@@ -56,9 +55,7 @@ export const Logo = ({ route = "/blob", ...props }) => {
 export function Duck({ ...props }) {
 	const { scene } = useGLTF("/duck.glb")
 
-	FIBER.useFrame(
-		(state, delta) => (scene.rotation.y = state.clock.getElapsedTime() * 11 + Math.sin(state.clock.getElapsedTime() * 0.5) * 7),
-	)
+	useFrame((state, delta) => (scene.rotation.y = state.clock.getElapsedTime() * 11 + Math.sin(state.clock.getElapsedTime() * 0.5) * 7))
 
 	return <primitive object={scene} {...props} />
 }
