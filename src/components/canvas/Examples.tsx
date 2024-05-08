@@ -8,11 +8,8 @@ import { Line, useCursor, MeshDistortMaterial } from "@react-three/drei"
 import { useRouter } from "next/navigation"
 import { DREI, FIBER, REACT } from "@/FExport"
 
-
 /**
- * 
- * @param param0 boo
- * @returns 
+ * dev commit
  */
 export const Blob = ({ route = "/", ...props }) => {
 	const router = useRouter()
