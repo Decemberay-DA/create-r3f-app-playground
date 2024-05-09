@@ -11,6 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div
 			ref={ref}
+			// className='relative w-[100%] h-[100%] overflow-auto touch-action-auto'
 			style={{
 				position: "relative",
 				width: " 100%",
@@ -21,6 +22,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		>
 			{children}
 			<Scene
+				// className='absolute top-0 left-0 w-[100vw] h-[100vh] pointer-events-none'
 				style={{
 					position: "fixed",
 					top: 0,
