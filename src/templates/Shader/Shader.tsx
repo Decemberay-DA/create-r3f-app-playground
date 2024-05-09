@@ -1,4 +1,4 @@
-// @ts-nocheck // TODO: fix types
+// @ts-nocheck
 import * as THREE from "three"
 import vertex from "./glsl/shader.vert"
 import fragment from "./glsl/shader.frag"
@@ -17,12 +17,16 @@ const ShaderImpl = shaderMaterial(
 
 extend({ ShaderImpl })
 
-// eslint-disable-next-line react/display-name
-export const Shader = forwardRef(({ children, ...props }, ref) => {
+type ShaderProps = {
+	children: React.ReactNode
+	[key: string]: any
+}
+export const Shader = forwardRef(({ children, ...props }: ShaderProps, ref) => {
 	const localRef = useRef()
 
 	useImperativeHandle(ref, () => localRef.current)
 
 	useFrame((_, delta) => (localRef.current.time += delta))
-	return <shaderImpl ref={localRef} glsl={THREE.GLSL3} {...props} attach='material' />
+
+	return <ShaderImpl ref={localRef} glsl={THREE.GLSL3} {...props} attach='material' />
 })
