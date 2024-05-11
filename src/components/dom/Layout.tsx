@@ -11,6 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<div
 			ref={ref}
+			// tailwind not worked
 			// className='relative w-[100%] h-[100%] overflow-auto touch-action-auto'
 			style={{
 				position: "relative",
