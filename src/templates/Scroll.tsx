@@ -1,6 +1,7 @@
 // 1 - wrap <Component {...pageProps} /> with <Scroll /> in _app.jsx
 // 2 - add <ScrollTicker /> wherever in the canvas
 // 3 - enjoy
+"use client"
 import { addEffect, useFrame } from "@react-three/fiber"
 import Lenis from "@studio-freight/lenis"
 import { useRef, useEffect } from "react"
@@ -11,7 +12,8 @@ const state = {
 	progress: 0,
 }
 
-export default function Scroll({ children }: { children: React.ReactNode }) {
+
+export default function Scroll({ children }: { children?: React.ReactNode }) {
 	const content = useRef<HTMLDivElement>(null)
 	const wrapper = useRef<HTMLDivElement>(null)
 
