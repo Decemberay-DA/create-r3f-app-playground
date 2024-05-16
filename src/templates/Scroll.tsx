@@ -12,7 +12,6 @@ const state = {
 	progress: 0,
 }
 
-
 export default function Scroll({ children }: { children?: React.ReactNode }) {
 	const content = useRef<HTMLDivElement>(null)
 	const wrapper = useRef<HTMLDivElement>(null)
@@ -64,8 +63,12 @@ export default function Scroll({ children }: { children?: React.ReactNode }) {
 
 export const ScrollTicker = ({ smooth = 9999999 }) => {
 	useFrame(({ viewport, camera }, delta) => {
-		camera.position.y = MathUtils.damp(camera.position.y, -state.progress * viewport.height, smooth, delta)
+		camera.position.y = MathUtils.damp(
+			camera.position.y,
+			-state.progress * viewport.height, //
+			smooth,
+			delta,
+		)
 	})
-
 	return null
 }

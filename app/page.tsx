@@ -81,15 +81,39 @@ export default function Page() {
 					</View>
 				</div>
 
-				<div className='w-full p-6 sm:w-1/2'>
-					<h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Dom and 3D are synchronized</h2>
-					<p className='mb-8 text-gray-600'>
-						3D Divs are renderer through the View component. It uses gl.scissor to cut the viewport into segments. You tie a
-						view to a tracking div which then controls the position and bounds of the viewport. This allows you to have multiple
-						views with a single, performant canvas. These views will follow their tracking elements, scroll along, resize, etc.
-					</p>
-				</div>
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
+				{teeeext()}
 			</div>
 		</>
 	)
+
+	function teeeext() {
+		return (
+			<div className='w-full p-6 sm:w-1/2'>
+				<h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Dom and 3D are synchronized</h2>
+				<p className='mb-8 text-gray-600'>
+					3D Divs are renderer through the View component. It uses gl.scissor to cut the viewport into segments. You tie a view to
+					a tracking div which then controls the position and bounds of the viewport. This allows you to have multiple views with
+					a single, performant canvas. These views will follow their tracking elements, scroll along, resize, etc.
+				</p>
+			</div>
+		)
+	}
 }
